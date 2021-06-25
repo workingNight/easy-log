@@ -23,3 +23,29 @@ Vite 以 [原生 ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Gu
 模板好像没有next.js。模板、插件都在里面
 
 不过有electron
+
+
+
+【异步chunk优化】请求共用chunk的时候，一起并行请求，
+
+【依赖预构建】，比如lodash-es有600多个内置模块，通过预构建把它成为一个模块，这个时候我们就只需要一个http请求
+
+【静态资源引入】可以是绝对也可以是相对
+
+使用 `?url` 后缀显式导入为一个 URL
+
+资源可以使用 `?raw` 后缀声明作为字符串引入
+
+- `public` 中的资源不应该被 JavaScript 文件引用。
+
+Vite 在一个特殊的 **`import.meta.env`** 对象上暴露环境变量
+
+ssr还 不成熟，不能把vite应用上去
+
+
+
+
+
+## 第一遍总结
+
+就记得上面几个关键字，了解的它为什么快。
