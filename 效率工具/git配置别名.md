@@ -10,3 +10,6 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --global alias.co checkout
 git config --global alias.ci commit
 git config --global alias.br branch
+
+
+[参考文章，廖雪峰git](https://www.liaoxuefeng.com/wiki/896043488029600/898732837407424)
