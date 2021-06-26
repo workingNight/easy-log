@@ -4,15 +4,17 @@
 
 
 
-**元组**
+### **元组**
 
 限制数组元素的个数和类型，用来实现多值返回。
 
 可以参考 React Hooks。const [count, setCount] = useState(0)
 
+ 
 
 
-**unknown**
+
+### **unknown**
 
 描述类型并不确定的变量。如果你需要用any的时候，考虑一下unkonwn
 
@@ -28,7 +30,9 @@ if (typeof result === 'number') {
 
 
 
- **void、undefined、null**
+
+
+###  **void、undefined、null**
 
 undefined 的最大价值主要体现在接口类型
 
@@ -36,7 +40,9 @@ null 的价值我认为主要体现在接口制定，属性、对象都可能是
 
 
 
-**never**
+
+
+### **never**
 
 never 表示永远不会有返回值的类型.用于死循环，统一抛错等函数返回值定义。或者应用于属性只读
 
@@ -44,7 +50,9 @@ never 是所有类型的子类型，它可以给所有类型赋值.变量的类�
 
 
 
-**类型断言**
+
+
+### **类型断言**
 
 静态类型对运行时的逻辑无能为力，场景报错：ts2322，不能把类型undifined分配给number
 
@@ -54,7 +62,9 @@ mayNullOrUndefinedOrString!.toString(); // ok非空断言。尽量用类型守�
 
 
 
-**类型推断**
+
+
+### **类型推断**
 
  let x1 = 42; // 推断出 x1 的类型是 number
 
@@ -71,7 +81,7 @@ mayNullOrUndefinedOrString!.toString(); // ok非空断言。尽量用类型守�
 
 
 
-**字面量类型**
+### **字面量类型**
 
 可以进行组合
 
@@ -87,7 +97,9 @@ let strFun = (str = 'this is string') => str; // 类型是 (str?: string) => str
 
 
 
-**类型推广和类型收缩**
+
+
+### **类型推广和类型收缩**
 
 类型拓展：
 
@@ -111,7 +123,9 @@ let func = (anything: any) => {
 
 
 
-**类型谓词**
+
+
+### **类型谓词**
 
 ```
 我们通过“参数名 + is + 类型”的格式明确表明了参数的类型，进而引起类型缩小
@@ -122,7 +136,9 @@ function isString(s): s is string { // 类型谓词
 
 
 
-**类类型**
+
+
+### **类类型**
 
 派生类如果包含一个构造函数，必须在构造函数中调用 super() 方法。super会调用基类的构造函数
 
@@ -134,7 +150,9 @@ function isString(s): s is string { // 类型谓词
 
 
 
-**接口类型和类型别名**
+
+
+### **接口类型和类型别名**
 
 interface   typeof
 
@@ -144,7 +162,9 @@ interface  可以重复定义，它的属性会叠加，我们可以方便对全
 
 
 
-**索引签名**
+
+
+### **索引签名**
 
 ```
 interface LanguageRankInterface {
@@ -154,7 +174,9 @@ interface LanguageRankInterface {
 
 
 
-**联合类型和交叉类型**
+
+
+### **联合类型和交叉类型**
 
 “|”操作符分隔类型的语法来表示联合类型。
 
@@ -176,7 +198,9 @@ interface LanguageRankInterface {
 
 
 
-**枚举类型**
+
+
+### **枚举类型**
 
 ```
 转译为js
@@ -221,7 +245,9 @@ interface LanguageRankInterface {
 
 
 
-**泛型**
+
+
+### **泛型**
 
 借用 Java 中泛型的释义来回答这个问题：泛型指的是类型参数化，即将原来某种具体的类型进行参数化。和定义函数一样去控制类型，并在调用时给泛型传入明确的类型参数。设计泛型的目的在于有效约束类型成员之间的关系，比如函数参数和返回值、类或者接口成员和方法之间的关系。
 
@@ -230,3 +256,163 @@ interface LanguageRankInterface {
 所以： *函数的泛型入参必须和参数/参数成员建立有效的约束关系才有实际意义*
 
 泛型约束： 泛型入参限定在一个相对更明确的集合内，以便对入参进行约束。
+
+
+
+
+
+### **增强类型**
+
+interface  重载，后面的优先级更高
+
+decare:    看g了一下概念还是有些模糊
+
+
+
+
+
+### **类型兼容**
+
+子类型可以给父类类型赋值，因为类型缩小了。
+
+顶层unKnown  ->    基础类型 ->  never
+
+
+
+
+
+### **官方工具类**
+
+*本质是自定义的复杂类型构造器—泛型	*
+
+Partial  属性全部设置为可选
+
+Required  属性全部设置为必选
+
+Readonly  只读
+
+Pick
+
+Omit 
+
+联合类型:  Exclude   Extract
+
+NonNullable   在联合类型中去除null和unfined的类型 
+
+Record
+
+
+
+
+
+### **打造属于自己的工具类型**
+
+使用泛型进行变量抽离，逻辑封装其实就是在造类型的轮子。
+
+把确切的类型抽离为入参，然后封装成一个可复用的泛型。
+
+```
+//一个判断是否有继承关系的泛型，利用三元运算符
+ type isSubTying<Child, Par> = Child extends Par ? true : false;
+```
+
+type 常用于定义泛型，给类型赋别名
+
+索引访问类型
+
+typeof  在类型上下文中获取变量或者属性的类型。任何未显式添加类型注解或值与类型注解一体（比如函数、类）的变量或属性，我们都可以使用 typeof 提取它们的类型，方便，有用。in 和  typeof都只能在类型别名中组合使用。
+
+我们还可以在映射类型的索引签名中使用类型断言
+
+实例：自定义工具类 merge
+
+```
+ type Merge<A, B> = {
+    [key in keyof A | keyof B]: key extends keyof A
+      ? key extends keyof B
+        ? A[key] | B[key]
+        : A[key]
+      : key extends keyof B
+      ? B[key]
+      : never;
+  };
+  type Merged = Merge<{ id: number; name: string }, { id: string; age: number }>;
+```
+
+自定义工具了 equal	,能使识别any,也能处理条件分配类型和never的问题
+
+```
+ type IsAny<T> = 0 extends (1 & T) ? true : false;
+  type EqualV3<S, T> = IsAny<S> extends true
+    ? IsAny<T> extends true
+      ? true
+      : false
+    : IsAny<T> extends true
+    ? false
+    : [S] extends [T]    // []能解除条件分配
+    ? [T] extends [S]
+      ? true
+      : false
+    : false;
+```
+
+名词解释： 
+
+分配条件类型：如果参数是联合类型，会被拆解为一个个独立的类型然后分个进行校验
+
+never陷阱： 如果把never作为泛型入参时会出问题，因为never是所有类型的子类型
+
+ [] 解除条件分配类型和 never “陷阱”
+
+
+
+### tsconfig.json
+
+定制ts的行为。
+
+compilerOptions {
+
+target
+
+module
+
+jsx
+
+incremental
+
+declaration
+
+sourceMap
+
+lib
+
+strict 为 true 时，一般我们会开启以下编译配置。
+
+> alwaysStrict：保证编译出的文件是 ECMAScript 的严格模式，并且每个文件的头部会添加 'use strict'。
+>
+> strictNullChecks：更严格地检查 null 和 undefined 类型，比如数组的 find 方法的返回类型将是更严格的 T | undefined。
+>
+> strictBindCallApply：更严格地检查 call、bind、apply 函数的调用，比如会检查参数的类型与函数类型是否一致。
+>
+> strictFunctionTypes：更严格地检查函数参数类型和类型兼容性。
+>
+> strictPropertyInitialization：更严格地检查类属性初始化，如果类的属性没有初始化，则会提示错误。
+>
+> noImplicitAny：禁止隐式 any 类型，需要显式指定类型。TypeScript 在不能根据上下文推断出类型时，会回退到 any 类型。
+>
+> noImplicitThis：禁止隐式 this 类型，需要显示指定 this 的类型。
+
+额外检查 eslint
+
+**模块解析** {
+
+moduleResolution
+
+baseUrl
+
+paths
+
+}
+
+}
+
