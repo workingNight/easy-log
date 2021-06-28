@@ -384,7 +384,7 @@ v    volume卷  让宿主机和docker能够共享数据，进行一定通信
 
   2. dockerFile添加
 
-      docker cp 从容器内拷贝文件到主机
+     docker cp 从容器内拷贝文件到主机
 
      dockerfile是什么     
 
@@ -402,9 +402,16 @@ v    volume卷  让宿主机和docker能够共享数据，进行一定通信
 
       3. File构建
 
-      4. build后生成镜像    build -f ，执行命令生成镜像
+     ```
+     FROM centos 
+     VOLUME ["/目录1","/目录2"]
+     CMD echo "finished, ----success1"
+     CMD /bin/bash
+     ```
 
-      5. run 容器
+     4. build后生成镜像    build -f ，执行命令生成镜像.获得一个自定义的镜像
+
+     5. run 容器
 
      Docker挂载主机目录Docker访问出现cannot open directory : Permission denied 
 
@@ -420,11 +427,29 @@ v    volume卷  让宿主机和docker能够共享数据，进行一定通信
 
 	3. 容器间传递共享
 
-​	
+​	结论： 容器之间配置信息的传递，数据卷的生命周期一直持续到没有容器使用它为止
 
 
 
 
+
+### dockerfile 重点
+
+#### 是什么
+
+dockerfile是用来构建 docker镜像的构建文件，是由一系列命令和参数构成的脚本
+
+构建三步骤，   编写dockerfile   ->      docker build   ->  docker run
+
+文件是怎么样的。
+
+#### dockerfile构建过程解析
+
+#### DockderFile体系结构
+
+#### 案例
+
+#### 小总结
 
 
 
