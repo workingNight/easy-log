@@ -443,11 +443,139 @@ dockerfile是用来构建 docker镜像的构建文件，是由一系列命令和
 
 文件是怎么样的。
 
+```
+FROM scratch //基础镜像
+MAINTAINER   //作者和邮箱
+
+```
+
+
+
 #### dockerfile构建过程解析
 
-#### DockderFile体系结构
+手动编写一个Dockerfile文件，然后docker build执行，获得一个自定义的镜像
+
+​	**内容基础知识**： 
+
+	1. 没体哦啊保留字指令都必须为大写字母。且后面需要跟随参数
+ 	2. 指令从上到下顺序执行
+ 	3. #表示注释
+ 	4. 每条指令都会创建一个新的镜像层，并对镜像进行提交
+
+**大致流程**
+
+	1. 从基础镜像运行一个容器，
+ 	2. 执行一条指令对容器进行修改
+ 	3. 执行类似docker commit的操作提交一个新的镜像层
+ 	4. docker再基于刚提交的镜像运行一个新容器
+ 	5. 执行dockerfile中的下一条指令知道所有指令都执行完成
+
+#### DockderFile体系结构 
+
+1. FROM        基础镜像 （base镜像：scratch）
+
+2. MAINTAINER     镜像维护者的姓名和邮箱
+
+3. RUN              容器构建时需要运行的命令
+
+4. EXPOSE       当前容器对外暴露的端口号
+
+5. WORKDIR     知道在创建容器后，终端默认登录的进行工作目录，一个落脚点
+
+6. ENV    用来构建镜像过程中设置环境变量，类似于全局变量
+
+7. ADD    拷贝加解压，add命令会自动处理url和解压tar压缩包
+
+8. COPY      将从构建上下文目录中源路径文件/目录复制到新的一层的镜像内的目录路径位置
+
+9. VOLUME
+
+10. CMD     
+
+    1. 指定一个容器启动时要运行的命令，dockerfile中可以有多个cmd命令，但只有最后一个生效
+    2. cmd会被docker run 之后的参数替换    比如   docker  run -it  xxx    **ls -l**  会覆盖掉dockerfile里面的cmd
+
+11. ENTEYPOINT  和cmd的功能一样，但是是每一个都会生效。不是替换而是追加
+
+12. ONBUILD   当构建一个被继承的dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild会被触发
+
+    
 
 #### 案例
+
+**案例1**
+
+```
+FROM  centos    //继承本地的centos
+MAINTAINER yaoyue<2316570512@qq.com>
+
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+
+RUN yum -y install vim 
+RUN yum -y install net-tools
+
+EXPOSE 8000
+
+CMD echo $MYPATH
+CMD echo "SUCCESS ---------OK"
+CMD /bin/bash
+```
+
+构建：   docker build -f /mydocker/Dockerfile2   -t 新镜像名:tag  .            最后面的.表示当前目录
+
+docker history 镜像名  ：列出镜像变更历史
+
+**案例2** 
+
+```
+FROM centos 
+RUN yum intsall -y curl 
+ENTEYPOINT ["curl","-s","http://ip.cn"]
+CMD -i
+```
+
+**案例3**
+
+```
+ONBUILD RUN echo "father onbuild  ----- 666"   //如果是被继承的话父镜像的这个就会被运行
+
+需要子Dockerfile
+FROM father_images
+```
+
+**案例4**
+
+```
+FROM  centos 
+MAINTAINER yaoyue<2316570512@qq.com>
+#把宿主机当前上下文的c.txt拷贝到容器usr/local路径下
+#把java与tomcat添加到容器中
+#安装vim编辑器
+#设置工作访问时候的WORKDIR路径，登录落脚点
+#配置java与tomcat环境变量
+#容器运行时监听的端口
+#启动时运行tomcat
+COPY c.txt /usr/local/cincontainer.txt
+ADD jdk-8u171-linux-x64.tar.gz /usr/loacl/
+ADD apache-tomcat-9.0.8.tar.gz /usr/local/
+RUN yum -y install vim 
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+ENV JAVA_HOME /..
+ENV CLASSPATH /...
+ENV CATALINA_HOME /..
+ENV CATALINA_BASE /..
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/LIB:$CATALINA_HOME/bin
+EXPOSE 8080
+# ENTRYPOINT ["/usr/local/apache-tomcat-9.0.8/bin/startup/sh"]
+# CMD ["/usr/local/apache-tomcat-9.0.8/bin/catalina.sh, "run"]
+CMD /usr/local/apache-tomcat-9.0.8/bin/startup/sh && tail -F /usr/local/apache-tomcat-9.0.8/bin/logs catalina.out
+```
+
+构建  =》 run =》 验证 =》 结合前述的容器卷将测试的web服务test发布
+
+
 
 #### 小总结
 
@@ -472,3 +600,5 @@ dockerfile是用来构建 docker镜像的构建文件，是由一系列命令和
 **ps命令**  process status的缩写，列出系统中正在运行的那些进程，执行ps命令时进程的快照
 
 **kernel 是什么**  翻译：坚果仁，核心要点，核心，中心要点
+
+**curl  命令**   命令行工具发出请求，如果用得好可以取代postman这种图形化工具
