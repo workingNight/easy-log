@@ -60,6 +60,16 @@ never 是所有类型的子类型，它可以给所有类型赋值.变量的类�
 
 mayNullOrUndefinedOrString!.toString(); // ok非空断言。尽量用类型守卫替换，为空断言，只能在检查时候没有问题，但是不能避免在运行时候出错
 
+非空断言  !.
+
+```
+场景： 
+a.list   如果报错，可以进行类型断言
+(a as {list: Array<xxx>}).list   这个时候就不会报错
+```
+
+
+
 
 
 
