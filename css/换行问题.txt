@@ -1,0 +1,39 @@
+# 换行问题
+
+
+### 纯英文、纯数字换行
+.break-all {
+	word-break: break-all;
+}
+
+
+### 单行省略
+```
+.oneLine {
+  /* 文本一行显示*/
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+```
+
+
+### 多行省略
+```
+.threeLines {
+  /* 文本三行显示*/
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+```

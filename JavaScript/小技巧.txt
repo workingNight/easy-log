@@ -1,0 +1,6 @@
+# 小技巧
+
+
+
+### 快速生成一个数组，方便测试
+const mocklist = Array.from(Array(6).keys())

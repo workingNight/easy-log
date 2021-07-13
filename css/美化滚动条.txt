@@ -1,0 +1,29 @@
+// 修改滚动条样式
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+div::-webkit-scrollbar,
+ul::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track,
+ul::-webkit-scrollbar-track {
+  -webkit-border-radius: 2.5px;
+  -moz-border-radius: 2.5px;
+  border-radius: 2.5px;
+  box-shadow: inset 0 0 5px rgba(197, 197, 197, 0.6);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb,
+ul::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 2.5px;
+  -moz-border-radius: 2.5px;
+  border-radius: 2.5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 5px rgba(197, 197, 197, 0.6);
+}

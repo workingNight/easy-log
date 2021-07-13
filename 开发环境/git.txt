@@ -1,0 +1,13 @@
+# git
+
+
+
+## git 拉取分支并关联远程库
+git checkout -b xxx
+git branch --set-upstream-to origin/xxx
+
+## sourceTree
+导入本机的ssh公钥，要在上面的栏中选中工具-》选项-》然后选择ssh
+
+
+好像还有一个git push -u origin master是啥作用来着。。。
