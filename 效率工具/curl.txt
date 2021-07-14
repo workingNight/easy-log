@@ -1,0 +1,23 @@
+## 一次踩坑记录
+
+### post code 
+```
+curl http://localhost:8080/albums  --include  --header "Content-Type: application/json"  --request "POST"  --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+```
+
+试试下面的
+```
+curl http://localhost:8080/albums  -H  @{"Content-Type"="application/json"} -Method Post -Body '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+```
+
+ok了~ 
+原因， 因为power中，curl只是 invoke-webRequest 的别名。有不一样的写法
+写法参考：
+```
+Invoke-WebRequest `
+    -Uri "http://localhost:5678/api/findgen" `
+    -Headers @{"Content-Type"= "application/json"} `
+    -Body '{"a": "Val 1","b": "Val 2","c": "Val 3","d": "Val 4"}' `
+    -OutFile "file.json" `
+    -Method Post
+```
