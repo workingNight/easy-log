@@ -52,6 +52,3 @@ go语言学习。
 
 
 
-### 基础遨游
-
-[阮一峰的bash教程](https://wangdoc.com/bash/intro.html)

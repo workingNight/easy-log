@@ -1,5 +1,9 @@
 ## ts补漏
 
+[TOC]
+
+
+
 
 
 
@@ -426,3 +430,132 @@ paths
 
 }
 
+
+
+## ts  7-16补漏
+
+
+
+### 类型断言
+
+- 2种写法
+
+  你确定这个当前数据的类型，规避报错
+
+  (someValue **as** string).length
+
+  还有一种写法是   (<string/>someValue).length
+
+- 非空断言 ！ 
+
+  自动规避null 和 undifined,但是最好避免使用，因为只是编译的时候没有报错，运行的时候可能还是会出错
+
+- 确定断言赋值
+
+
+
+### 类型守卫
+
+收缩类型
+
+- in
+
+  ` **if** ("privileges" **in** emp) {    console.log("Privileges: " + emp.privileges);  } `
+
+  当我们使用 . 运算符去访问对象是，我们可以添加类型守卫，避免访问异常缺失。不过es10有 `?.`运算符
+
+- typeof
+
+- intanceof
+
+- is
+
+
+
+### interface 和 type
+
+- 类型别名可以用原始类型、联合类型、元组
+- interface 可以extends type
+- type  一般用  & 运算符
+- interface 同名的会自动合并
+
+
+
+### ts类
+
+static 标识
+
+\# 私有字段前缀
+
+抽象类  abstract  去定义抽象方法，等待实例去实现
+
+
+
+### 泛型
+
+写法    , 常用简写值： K V E
+
+```
+function identity <T, U>(value: T, message: U) : T {
+  console.log(message);
+  return value;
+}
+<> 尖括号写法.     
+```
+
+工具：
+
+- typeof
+- keyof
+- in
+- infer  推断 。   =>  infer R ? R : any   如果返回的是R就返回R，不是就默认any
+- entends  限定约束
+
+实例， 官方的 Partial<T\> 就是一个例子，把某个类型里的属性全部变为可选项 ？ 
+
+总结：  泛型，就是都将要实现的东西的一种类型约束，他表现了类型之间的关系，如果不进行约束那么默认就是全是any
+
+
+
+
+
+###  装饰器
+
+> 还是实验性的属性，tsconfig.json 启用 experimentalDecorators  	
+
+是一个表达式，表达式执行后返回一个函数（target, name , descriptor),执行该函数后，可能返回descriptor对象，用于配置target对象
+
+分类
+
+- 类装饰
+- 方法
+- 属性
+- 参数
+
+作用是什么呢？  可以简化一些重复的定义，只需要把装饰器写在上面就行。一些生成打印日志的。
+
+
+
+
+
+### ts4 新特性
+
+- 构造函数会去推断类的属性，我们属性就可以不用显示声明类型。
+
+- 带标记的元组类型。 (使用该函数时，提示会更加优雅）
+
+  ```
+  function addPerson(...args: [name: string, age: number]): void {
+    console.log(`Person info: name: ${args[0]}, age: ${args[1]}`);
+  }
+  ```
+
+  
+
+
+
+### 推荐工具
+
+- 可以用 js 的 json 转 ts 插件，我们处理后端的接口的时候就可以非常迅速了
+
+- [ts 演练场](www.typescriptlang.org/play/)
