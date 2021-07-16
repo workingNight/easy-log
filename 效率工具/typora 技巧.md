@@ -33,3 +33,11 @@ Windows Registry Editor Version 5.00
 
 
 
+
+
+## 快捷键
+
+标签符号快捷键 😎  太棒了
+
+![image-20210714104849288](https://img.bookins.cn/img/20210714104849.png)
+

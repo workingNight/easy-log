@@ -14,3 +14,13 @@
 2. go mod init  github.com/yourgithubname/yourlibname
 3. write this and git commit to github
 4. we can reference which in our new loacl project by import and go mod tidy 
+
+
+
+
+
+
+
+## go mod 和  go get的区别？
+
+[go mod 基本操作](https://www.jianshu.com/p/760c97ff644c)

@@ -10,9 +10,10 @@ curl http://localhost:8080/albums  --include  --header "Content-Type: applicatio
 curl http://localhost:8080/albums  -H  @{"Content-Type"="application/json"} -Method Post -Body '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
 ```
 
-ok了~ 
-原因， 因为power中，curl只是 invoke-webRequest 的别名。有不一样的写法
-写法参考：
+- [x] ok了~ 
+  原因， 因为powershell中，curl只是 invoke-webRequest 的别名。有不一样的写法
+  写法参考：
+
 ```
 Invoke-WebRequest `
     -Uri "http://localhost:5678/api/findgen" `
