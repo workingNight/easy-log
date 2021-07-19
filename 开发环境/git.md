@@ -12,7 +12,6 @@ git branch --set-upstream-to origin/xxx
 
 好像还有一个git push -u origin master是啥作用来着。。。
 
-
 ## git 一点补充
 
 ## 把本地项目推到自己的github
